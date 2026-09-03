@@ -23,30 +23,30 @@ function pillarText(stem, branch) {
 function tenGodText(god) { return `${god}(${TEN_GOD_HANJA[god] || god})`; }
 function applyHaoche(text) {
     return text
-        .replace(/있을 수 있습니다\./g, "있을 수 있소.")
-        .replace(/만들어갑니다\./g, "만들어 가오.")
-        .replace(/살펴봅니다\./g, "살펴보오.")
-        .replace(/알려줍니다\./g, "알려 주오.")
-        .replace(/나타납니다\./g, "나타나오.")
-        .replace(/나타냅니다\./g, "드러내오.")
-        .replace(/만듭니다\./g, "만드오.")
-        .replace(/읽을 수 있습니다\./g, "읽을 수 있소.")
-        .replace(/읽습니다\./g, "읽는 것이오.")
-        .replace(/봅니다\./g, "보는 것이오.")
-        .replace(/뜻합니다\./g, "뜻하오.")
-        .replace(/생깁니다\./g, "생기오.")
-        .replace(/필요합니다\./g, "필요하오.")
-        .replace(/중요합니다\./g, "중요하오.")
-        .replace(/확인해야 합니다\./g, "확인해야 하오.")
-        .replace(/보셔야 합니다\./g, "보셔야 하오.")
-        .replace(/있습니다\./g, "있소.")
-        .replace(/없습니다\./g, "없소.")
-        .replace(/좋습니다\./g, "좋소.")
-        .replace(/됩니다\./g, "되오.")
-        .replace(/합니다\./g, "하오.")
-        .replace(/입니다\./g, "이오.")
-        .replace(/해주세요/g, "해 주시오")
-        .replace(/보세요/g, "보시오")
+    .replace(/있을 수 있습니다\./g, "있을 수 있소.")
+    .replace(/만들어갑니다\./g, "만들어 가오.")
+    .replace(/살펴봅니다\./g, "살펴보오.")
+    .replace(/알려줍니다\./g, "알려 주오.")
+    .replace(/나타납니다\./g, "나타나오.")
+    .replace(/나타냅니다\./g, "드러내오.")
+    .replace(/만듭니다\./g, "만드오.")
+    .replace(/읽을 수 있습니다\./g, "읽을 수 있소.")
+    .replace(/읽습니다\./g, "읽는 것이오.")
+    .replace(/봅니다\./g, "보는 것이오.")
+    .replace(/뜻합니다\./g, "뜻하오.")
+    .replace(/생깁니다\./g, "생기오.")
+    .replace(/필요합니다\./g, "필요하오.")
+    .replace(/중요합니다\./g, "중요하오.")
+    .replace(/확인해야 합니다\./g, "확인해야 하오.")
+    .replace(/보셔야 합니다\./g, "보셔야 하오.")
+    .replace(/있습니다\./g, "있소.")
+    .replace(/없습니다\./g, "없소.")
+    .replace(/좋습니다\./g, "좋소.")
+    .replace(/됩니다\./g, "되오.")
+    .replace(/합니다\./g, "하오.")
+    .replace(/입니다\./g, "이오.")
+    .replace(/해주세요/g, "해 주시오")
+    .replace(/보세요/g, "보시오")
         .replace(/은\(는\)/g, "은")
         .replace(/이\(가\)/g, "이");
 }
@@ -521,4 +521,5 @@ app.post('/api/saju', (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("정밀 만세력 백엔드 서버가 3000번 포트에서 작동 중입니다."));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`정밀 만세력 백엔드 서버가 ${PORT}번 포트에서 작동 중입니다.`));

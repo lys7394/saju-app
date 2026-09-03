@@ -38,14 +38,28 @@
         .ganji-char { font-size: 20px; font-weight: bold; }
 
         .report-header { font-size: 18px; color: var(--gold); margin-top: 25px; margin-bottom: 15px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; font-weight: bold; }
-        .summary { white-space: pre-line; font-size: 15px; color: #d1d1d1; line-height: 2; text-align: left; word-break: keep-all; overflow-wrap: anywhere; }
-        .key-line { margin: 18px 0 14px; padding: 16px; border-left: 3px solid var(--vermillion); background: #23363b; color: #eee; font-size: 15px; line-height: 1.8; overflow-wrap: anywhere; }
+        .summary { white-space: pre-line; max-width: 100%; font-size: 15px; color: #d1d1d1; line-height: 1.95; text-align: left; word-break: keep-all; overflow-wrap: break-word; }
+        .key-line { margin: 18px 0 14px; padding: 16px; border-left: 3px solid var(--vermillion); background: #23363b; color: #eee; font-size: 15px; line-height: 1.8; overflow-wrap: break-word; }
         .fortune-heading { color: var(--gold); font-size: 18px; margin: 24px 0 12px; }
         .fortune-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .fortune-card { background: #203238; border: 1px solid var(--line); padding: 14px; min-height: 88px; }
         .fortune-card strong { display: block; color: var(--jade); font-size: 13px; margin-bottom: 6px; }
-        .fortune-card span { color: #ddd; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
-        .analysis-data { white-space: pre-line; font-size: 14px; color: #c4d0cd; background: rgba(8, 19, 24, 0.6); padding: 15px; border-radius: 4px; line-height: 1.8; overflow-wrap: anywhere; }
+        .fortune-card span { color: #ddd; font-size: 14px; line-height: 1.6; overflow-wrap: break-word; }
+        .analysis-data { white-space: pre-line; font-size: 14px; color: #c4d0cd; background: rgba(8, 19, 24, 0.6); padding: 15px; border-radius: 4px; line-height: 1.8; overflow-wrap: break-word; }
+        .element-chart { display: grid; gap: 9px; margin-top: 14px; }
+        .element-row { display: grid; grid-template-columns: 54px 1fr 28px; align-items: center; gap: 8px; font-size: 13px; }
+        .element-label { color: #dce7e3; }
+        .element-track { height: 10px; background: #102126; border: 1px solid #385158; border-radius: 2px; overflow: hidden; }
+        .element-bar { height: 100%; min-width: 2px; transition: width 0.35s ease; }
+        .element-count { color: var(--gold); text-align: right; }
+        .element-wood { background: #79b77d; }
+        .element-fire { background: #c46f5c; }
+        .element-earth { background: #c6a56a; }
+        .element-metal { background: #c8d0c8; }
+        .element-water { background: #6da2bd; }
+        .term-guide { margin: 22px 0 0; padding: 16px; border: 1px solid var(--line); background: rgba(8, 19, 24, 0.4); }
+        .term-guide h3 { margin: 0 0 10px; color: var(--gold); font-size: 16px; }
+        .term-guide p { margin: 7px 0; color: #cbd8d4; font-size: 13px; line-height: 1.7; }
         .detail-menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0 16px; }
         .detail-menu button { margin: 0; padding: 11px 6px; font-size: 13px; background: #203238; color: #d5e0dd; border: 1px solid var(--line); }
         .detail-menu button.active, .detail-menu button:hover { background: var(--jade); color: #102126; border-color: var(--jade); }
@@ -156,11 +170,20 @@
                 </tbody>
             </table>
 
-            <p><strong>오행 세력:</strong> <span id="display-elements"></span></p>
+            <p><strong>오행 세력</strong> <span style="color: #9eb4b0; font-size: 13px;">다섯 가지 기운의 분포</span></p>
+            <div id="element-chart" class="element-chart" aria-label="오행 분포 그래프"></div>
         </div>
 
         <div class="fortune-heading">■ 오늘의 점사</div>
         <div class="key-line" id="key-line"></div>
+        <div class="term-guide">
+            <h3>명리 용어 풀이</h3>
+            <p><strong>일간</strong>은 사주에서 나를 나타내는 중심 기질이에요.</p>
+            <p><strong>일지</strong>는 가까운 관계와 생활 환경을 살피는 자리예요.</p>
+            <p><strong>오행</strong>은 목·화·토·금·수, 다섯 가지 성향의 흐름이에요.</p>
+            <p><strong>용신·희신</strong>은 사주의 균형을 돕는 기운을 뜻해요.</p>
+            <p><strong>십성·신살·12운성</strong>은 관계 패턴, 상황별 성향, 기운의 흐름을 읽는 참고 자료예요.</p>
+        </div>
         <div class="fortune-cards">
             <div class="fortune-card"><strong>오늘의 점수</strong><span id="fortune-pattern"></span></div>
             <div class="fortune-card"><strong>오늘의 운</strong><span id="fortune-year"></span></div>
@@ -234,8 +257,7 @@
                 document.getElementById('year-gan').innerText = formatStem(saju.yGan);
                 document.getElementById('year-ji').innerText = formatBranch(saju.yJi);
 
-                document.getElementById('display-elements').innerText = 
-                    `목(${saju.elemCount['목'] || 0}) 화(${saju.elemCount['화'] || 0}) 토(${saju.elemCount['토'] || 0}) 금(${saju.elemCount['금'] || 0}) 수(${saju.elemCount['수'] || 0})`;
+                renderElementChart(saju.elemCount);
 
                 const firstParagraph = saju.reportText.split('\n\n').find(paragraph => paragraph.includes('사주는')) || saju.reportText.split('\n\n')[1];
                 document.getElementById('key-line').innerText = firstParagraph;
@@ -250,6 +272,18 @@
             document.getElementById('loading').style.display = 'none';
             document.getElementById('input-section').style.display = 'block';
         }
+    }
+
+    function renderElementChart(elementCounts) {
+        const elements = [
+            ['목', 'wood'], ['화', 'fire'], ['토', 'earth'], ['금', 'metal'], ['수', 'water']
+        ];
+        const maxCount = Math.max(1, ...elements.map(([element]) => elementCounts[element] || 0));
+        document.getElementById('element-chart').innerHTML = elements.map(([element, className]) => {
+            const count = elementCounts[element] || 0;
+            const width = `${(count / maxCount) * 100}%`;
+            return `<div class="element-row"><span class="element-label">${element}</span><span class="element-track"><span class="element-bar element-${className}" style="width: ${width}"></span></span><span class="element-count">${count}</span></div>`;
+        }).join('');
     }
 
     function showDetailReport(reportKey, button) {
