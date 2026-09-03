@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>운명의 길 - 명리학 정밀 사주 분석</title>
+    <style>
+        :root { --ink: #101a20; --paper: #18262b; --panel: #203238; --line: #385158; --jade: #79b7a7; --gold: #d9b96e; --vermillion: #c46f5c; }
+        body { font-family: 'Apple SD Gothic Neo', sans-serif; background: radial-gradient(circle at 50% -10%, #29454b 0, transparent 42%), linear-gradient(135deg, #0c151a 0%, var(--ink) 55%, #15252a 100%); color: #e6ece8; margin: 0; padding: 32px 20px; line-height: 1.85; min-height: 100vh; }
+        .container { max-width: 760px; min-width: 0; margin: 0 auto; background: linear-gradient(155deg, rgba(28, 47, 53, 0.98), rgba(15, 27, 32, 0.98)); padding: 34px; border-radius: 8px; border: 1px solid #49636a; box-shadow: 0 18px 45px rgba(0,0,0,0.35); }
+        h1 { color: var(--gold); text-align: center; margin-top: 0; border-bottom: 1px solid var(--line); padding-bottom: 18px; font-size: 22px; letter-spacing: 1px; }
+        #input-section { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; }
+        #input-section button { grid-column: 1 / -1; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #a9bfbc; font-size: 14px; font-weight: bold; }
+        input, select { width: 100%; padding: 12px; background: rgba(8, 19, 24, 0.62); border: 1px solid var(--line); border-radius: 4px; color: #fff; font-size: 15px; box-sizing: border-box; }
+        input:focus, select:focus { border-color: var(--jade); outline: none; box-shadow: 0 0 0 2px rgba(121,183,167,0.14); }
+        
+        .radio-group { display: flex; gap: 15px; }
+        .radio-label { display: flex; align-items: center; gap: 5px; color: #e2ebe8; cursor: pointer; font-weight: normal; }
+        .radio-label input { width: auto; }
+
+        button { width: 100%; padding: 15px; background: var(--gold); color: #182126; font-weight: bold; font-size: 16px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        button:hover { background: #ebce88; }
+
+        #loading { display: none; text-align: center; padding: 40px 0; }
+        .spinner { border: 4px solid #344b50; border-top: 4px solid var(--gold); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #result-section { display: none; }
+        .user-info-card { background: rgba(32, 50, 56, 0.82); padding: 18px; border-radius: 4px; margin-bottom: 20px; border-left: 4px solid var(--vermillion); }
+        .user-info-card p { margin: 6px 0; font-size: 14px; color: #bbb; }
+        
+        .saju-table { width: 100%; border-collapse: collapse; margin: 15px 0; text-align: center; background: rgba(8, 19, 24, 0.6); border-radius: 4px; overflow: hidden; }
+        .saju-table th, .saju-table td { border: 1px solid var(--line); padding: 12px 5px; font-size: 14px; }
+        .saju-table th { background: #243b40; color: var(--jade); font-weight: normal; }
+        .ganji-char { font-size: 20px; font-weight: bold; }
+
+        .report-header { font-size: 18px; color: var(--gold); margin-top: 25px; margin-bottom: 15px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; font-weight: bold; }
+        .summary { white-space: pre-line; font-size: 15px; color: #d1d1d1; line-height: 2; text-align: left; word-break: keep-all; overflow-wrap: anywhere; }
+        .key-line { margin: 18px 0 14px; padding: 16px; border-left: 3px solid var(--vermillion); background: #23363b; color: #eee; font-size: 15px; line-height: 1.8; overflow-wrap: anywhere; }
+        .fortune-heading { color: var(--gold); font-size: 18px; margin: 24px 0 12px; }
+        .fortune-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .fortune-card { background: #203238; border: 1px solid var(--line); padding: 14px; min-height: 88px; }
+        .fortune-card strong { display: block; color: var(--jade); font-size: 13px; margin-bottom: 6px; }
+        .fortune-card span { color: #ddd; font-size: 14px; line-height: 1.6; overflow-wrap: anywhere; }
+        .analysis-data { white-space: pre-line; font-size: 14px; color: #c4d0cd; background: rgba(8, 19, 24, 0.6); padding: 15px; border-radius: 4px; line-height: 1.8; overflow-wrap: anywhere; }
+        .detail-menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0 16px; }
+        .detail-menu button { margin: 0; padding: 11px 6px; font-size: 13px; background: #203238; color: #d5e0dd; border: 1px solid var(--line); }
+        .detail-menu button.active, .detail-menu button:hover { background: var(--jade); color: #102126; border-color: var(--jade); }
+        #detail-title { margin-top: 12px; }
+        .detail-panel { border-top: 1px solid var(--line); }
+        .detail-panel summary { padding: 16px 0 10px; color: var(--gold); font-weight: bold; cursor: pointer; }
+        @media (max-width: 520px) {
+            body { padding: 10px; }
+            .container { padding: 20px 16px; }
+            #input-section { grid-template-columns: 1fr; }
+            #input-section button { grid-column: auto; }
+            .detail-menu { grid-template-columns: repeat(2, 1fr); }
+            .fortune-cards { grid-template-columns: 1fr; }
+            .radio-group { flex-wrap: wrap; gap: 8px 12px; }
+        }
+        
+        .btn-reset { background: #26383c; color: #b5c2bf; margin-top: 25px; }
+        .btn-reset:hover { background: #344b50; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>[운명의 길] 오늘의 사주 점사</h1>
+
+    <div id="input-section">
+        <div class="form-group">
+            <label for="userName">이름 (또는 닉네임)</label>
+            <input type="text" id="userName" placeholder="이름을 입력하세요">
+        </div>
+
+        <div class="form-group">
+            <label>성별</label>
+            <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="gender" value="남성" checked> 남성</label>
+                <label class="radio-label"><input type="radio" name="gender" value="여성"> 여성</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>양력 / 음력 구분</label>
+            <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="calType" value="양력" checked> 양력</label>
+                <label class="radio-label"><input type="radio" name="calType" value="음력(평달)"> 음력 (평달)</label>
+                <label class="radio-label"><input type="radio" name="calType" value="음력(윤달)"> 음력 (윤달)</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="birthDate">생년월일</label>
+            <input type="text" id="birthDate" inputmode="numeric" maxlength="8" pattern="[0-9]{8}" placeholder="생년월일을 입력하시오" autocomplete="bday">
+        </div>
+
+        <div class="form-group">
+            <label for="birthTime">태어난 시간</label>
+            <select id="birthTime">
+                <option value="none" selected>태어난 시간(모름)</option>
+                <option value="23">자시 (23:30 ~ 01:29)</option>
+                <option value="1">축시 (01:30 ~ 03:29)</option>
+                <option value="3">인시 (03:30 ~ 05:29)</option>
+                <option value="5">묘시 (05:30 ~ 07:29)</option>
+                <option value="7">진시 (07:30 ~ 09:29)</option>
+                <option value="9">사시 (09:30 ~ 11:29)</option>
+                <option value="11">오시 (11:30 ~ 13:29)</option>
+                <option value="13">미시 (13:30 ~ 15:29)</option>
+                <option value="15">신시 (15:30 ~ 17:29)</option>
+                <option value="17">유시 (17:30 ~ 19:29)</option>
+                <option value="19">술시 (19:30 ~ 21:29)</option>
+                <option value="21">해시 (21:30 ~ 23:29)</option>
+            </select>
+        </div>
+
+        <button onclick="analyzeSaju()">운명 원국 분석하기</button>
+    </div>
+
+    <div id="loading">
+        <div class="spinner"></div>
+        <p style="color: #f5c518; font-weight: bold;">백엔드 서버에서 정밀 만세력 데이터를 연산 중입니다...</p>
+    </div>
+
+    <div id="result-section">
+        <div class="user-info-card">
+            <p><strong>이름:</strong> <span id="display-name"></span>　<strong>성별:</strong> <span id="display-gender"></span></p>
+            <p><strong>생년월일:</strong> <span id="display-birth"></span> (<span id="display-cal"></span>)</p>
+            
+            <table class="saju-table">
+                <thead>
+                    <tr>
+                        <th>시주(時)</th>
+                        <th>일주(日)</th>
+                        <th>월주(月)</th>
+                        <th>연주(年)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ganji-char" id="time-gan"></td>
+                        <td class="ganji-char" id="day-gan" style="color: #f5c518;"></td>
+                        <td class="ganji-char" id="month-gan"></td>
+                        <td class="ganji-char" id="year-gan"></td>
+                    </tr>
+                    <tr>
+                        <td class="ganji-char" id="time-ji"></td>
+                        <td class="ganji-char" id="day-ji" style="color: #f5c518;"></td>
+                        <td class="ganji-char" id="month-ji"></td>
+                        <td class="ganji-char" id="year-ji"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>오행 세력:</strong> <span id="display-elements"></span></p>
+        </div>
+
+        <div class="fortune-heading">■ 오늘의 점사</div>
+        <div class="key-line" id="key-line"></div>
+        <div class="fortune-cards">
+            <div class="fortune-card"><strong>오늘의 점수</strong><span id="fortune-pattern"></span></div>
+            <div class="fortune-card"><strong>오늘의 운</strong><span id="fortune-year"></span></div>
+            <div class="fortune-card"><strong>주의해야 할 점</strong><span id="fortune-advice"></span></div>
+        </div>
+
+        <div class="detail-menu" aria-label="분야별 사주 분석">
+            <button data-report="personality" onclick="showDetailReport('personality', this)">사주로 본 내 성격</button>
+            <button data-report="love" onclick="showDetailReport('love', this)">애정·결혼운</button>
+            <button data-report="money" onclick="showDetailReport('money', this)">재물운</button>
+            <button data-report="health" onclick="showDetailReport('health', this)">건강운</button>
+            <button data-report="career" onclick="showDetailReport('career', this)">취업·직업운</button>
+            <button data-report="temperament" onclick="showDetailReport('temperament', this)">신살·12운성 기질</button>
+        </div>
+        <details class="detail-panel">
+            <summary id="detail-title">사주로 본 내 성격 펼치기</summary>
+            <div id="detail-text" class="summary"></div>
+        </details>
+
+        <button class="btn-reset" onclick="resetForm()">다른 사람 사주 입력하기</button>
+    </div>
+</div>
+
+<script>
+    async function analyzeSaju() {
+        const name = document.getElementById('userName').value || '손님';
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const calType = document.querySelector('input[name="calType"]:checked').value;
+        const birthDate = document.getElementById('birthDate').value;
+        const birthTime = document.getElementById('birthTime').value;
+
+        if(!/^\d{8}$/.test(birthDate)) { alert('생년월일을 8자리 숫자로 입력해 주시오. 예: 19940326'); return; }
+
+        document.getElementById('input-section').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        try {
+            const response = await fetch('/api/saju', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, gender, birthDate, birthTime, calType })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || '사주 분석에 실패했습니다.');
+            }
+
+            if (data.success) {
+                const saju = data.saju;
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('result-section').style.display = 'block';
+
+                document.getElementById('display-name').innerText = name;
+                document.getElementById('display-gender').innerText = gender;
+                document.getElementById('display-birth').innerText = birthDate;
+                document.getElementById('display-cal').innerText = calType;
+
+                const stemHanja = { 갑: '甲', 을: '乙', 병: '丙', 정: '丁', 무: '戊', 기: '己', 경: '庚', 신: '辛', 임: '壬', 계: '癸' };
+                const branchHanja = { 자: '子', 축: '丑', 인: '寅', 묘: '卯', 진: '辰', 사: '巳', 오: '午', 미: '未', 신: '申', 유: '酉', 술: '戌', 해: '亥' };
+                const formatStem = stem => stem === '-' ? '-' : `${stem}(${stemHanja[stem]})`;
+                const formatBranch = branch => branch === '-' ? '-' : `${branch}(${branchHanja[branch]})`;
+                document.getElementById('time-gan').innerText = formatStem(saju.tGan);
+                document.getElementById('time-ji').innerText = formatBranch(saju.tJi);
+                document.getElementById('day-gan').innerText = formatStem(saju.dGan);
+                document.getElementById('day-ji').innerText = formatBranch(saju.dJi);
+                document.getElementById('month-gan').innerText = formatStem(saju.mGan);
+                document.getElementById('month-ji').innerText = formatBranch(saju.mJi);
+                document.getElementById('year-gan').innerText = formatStem(saju.yGan);
+                document.getElementById('year-ji').innerText = formatBranch(saju.yJi);
+
+                document.getElementById('display-elements').innerText = 
+                    `목(${saju.elemCount['목'] || 0}) 화(${saju.elemCount['화'] || 0}) 토(${saju.elemCount['토'] || 0}) 금(${saju.elemCount['금'] || 0}) 수(${saju.elemCount['수'] || 0})`;
+
+                const firstParagraph = saju.reportText.split('\n\n').find(paragraph => paragraph.includes('사주는')) || saju.reportText.split('\n\n')[1];
+                document.getElementById('key-line').innerText = firstParagraph;
+                document.getElementById('fortune-pattern').innerText = `${saju.currentDay.score}점 · ${saju.currentDay.ganji}일`;
+                document.getElementById('fortune-year').innerText = saju.currentDay.fortune;
+                document.getElementById('fortune-advice').innerText = saju.currentDay.caution;
+                window.detailReports = saju.detailReports;
+                showDetailReport('personality', document.querySelector('[data-report="personality"]'));
+            }
+        } catch (error) {
+            alert(error.message || '백엔드 서버와 통신할 수 없습니다. node server.js가 켜져 있는지 확인해 주세요.');
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('input-section').style.display = 'block';
+        }
+    }
+
+    function showDetailReport(reportKey, button) {
+        if (!window.detailReports || !window.detailReports[reportKey]) return;
+        const titles = {
+            personality: '사주로 본 내 성격',
+            love: '애정·결혼운',
+            money: '재물운',
+            health: '건강운',
+            career: '취업·직업운',
+            temperament: '신살·12운성으로 본 기질'
+        };
+        document.getElementById('detail-title').innerText = `${titles[reportKey]} 펼치기`;
+        document.getElementById('detail-text').innerText = window.detailReports[reportKey];
+        document.querySelector('.detail-panel').open = true;
+        document.querySelectorAll('.detail-menu button').forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+    }
+
+    function resetForm() {
+        document.getElementById('result-section').style.display = 'none';
+        document.getElementById('input-section').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
