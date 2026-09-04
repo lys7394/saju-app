@@ -40,6 +40,12 @@
 
         .report-header { font-size: 18px; color: var(--jade); margin-top: 25px; margin-bottom: 15px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; font-weight: bold; }
         .summary { white-space: pre-line; max-width: 100%; padding: 22px 20px; font-size: 15px; color: var(--ink); line-height: 2; text-align: left; word-break: keep-all; overflow-wrap: break-word; background-color: #efe2c5; background-image: linear-gradient(90deg, rgba(115, 83, 37, 0.06) 1px, transparent 1px), linear-gradient(rgba(115, 83, 37, 0.035) 1px, transparent 1px); background-size: 6px 6px; border: 1px solid #c1ad87; box-shadow: inset 0 0 32px rgba(115, 83, 37, 0.12), 0 2px 5px rgba(70, 49, 24, 0.08); }
+        .summary strong { font-weight: 800; color: #1d514e; }
+        .summary mark { background: #e9c96f; color: var(--ink); padding: 0 3px; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+        .report-heading { display: block; margin: 18px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #b9a47d; color: var(--jade); font-weight: 800; }
+        .summary .report-heading:first-child { margin-top: 0; }
+        #key-line .report-heading { margin-top: 0; }
+        #key-line mark { background: #e9c96f; color: var(--ink); padding: 0 3px; border-radius: 2px; }
         .key-line { margin: 18px 0 14px; padding: 18px 20px; border-left: 4px solid var(--vermillion); background-color: #ead9b7; background-image: linear-gradient(90deg, rgba(115, 83, 37, 0.05) 1px, transparent 1px), linear-gradient(rgba(115, 83, 37, 0.03) 1px, transparent 1px); background-size: 6px 6px; color: var(--ink); font-size: 15px; line-height: 1.8; overflow-wrap: break-word; border-top: 1px solid #c1ad87; border-bottom: 1px solid #c1ad87; box-shadow: inset 0 0 24px rgba(143, 111, 57, 0.1); }
         .fortune-heading { color: var(--jade); font-size: 18px; margin: 24px 0 12px; }
         .fortune-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -310,7 +316,7 @@
                 renderElementChart(saju.elemCount);
 
                 const firstParagraph = saju.reportText.split('\n\n').find(paragraph => paragraph.includes('사주는')) || saju.reportText.split('\n\n')[1];
-                document.getElementById('key-line').innerText = firstParagraph;
+                document.getElementById('key-line').innerHTML = formatNarrative(firstParagraph);
                 document.getElementById('fortune-pattern').innerText = `${saju.currentDay.score}점 · ${saju.currentDay.ganji}일`;
                 document.getElementById('fortune-year').innerText = saju.currentDay.fortune;
                 document.getElementById('fortune-advice').innerText = saju.currentDay.caution;
@@ -347,10 +353,25 @@
             temperament: '신살·12운성으로 본 기질'
         };
         document.getElementById('detail-title').innerText = `${titles[reportKey]} 펼치기`;
-        document.getElementById('detail-text').innerText = window.detailReports[reportKey];
+        document.getElementById('detail-text').innerHTML = formatNarrative(window.detailReports[reportKey]);
         document.querySelector('.detail-panel').open = true;
         document.querySelectorAll('.detail-menu button').forEach(item => item.classList.remove('active'));
         button.classList.add('active');
+    }
+
+    function escapeHtml(text) {
+        return text.replace(/[&<>"']/g, character => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[character]));
+    }
+
+    function formatNarrative(text) {
+        let formatted = escapeHtml(text);
+        formatted = formatted.replace(/^((?:■|\[)[^\n]+(?:\]|$))/gm, '<span class="report-heading">$1</span>');
+        ['일간', '일지', '오행', '십성', '신살', '12운성', '용신', '희신', '편재', '정재', '편관', '정관', '식신', '상관', '비견', '겁재', '편인', '정인'].forEach(term => {
+            formatted = formatted.replace(new RegExp(`(?<![\\w가-힣])(${term}(?:\\([^\\n)]*\\))?)`, 'g'), '<mark>$1</mark>');
+        });
+        return formatted;
     }
 
     function resetForm() {
