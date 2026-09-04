@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-label="맑은 낮의 전통 궁궐 문루와 석벽">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9ed2e8"/><stop offset="1" stop-color="#dcebdc"/></linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eee8d8"/><stop offset="1" stop-color="#c8bda3"/></linearGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#sky)"/>
+  <path d="M0 315 Q190 250 370 315 T760 300 T1200 285 V430 H0Z" fill="#7fa18e" opacity=".7"/>
+  <path d="M0 420 H1200 V620 H0Z" fill="url(#stone)"/>
+  <path d="M0 420 H1200 V440 H0Z" fill="#a89676"/>
+  <g stroke="#b7aa91" stroke-width="3" opacity=".8"><path d="M0 480 H1200"/><path d="M0 535 H1200"/><path d="M0 590 H1200"/><path d="M100 440 V620"/><path d="M270 440 V620"/><path d="M450 440 V620"/><path d="M750 440 V620"/><path d="M930 440 V620"/><path d="M1100 440 V620"/></g>
+  <path d="M110 410 L600 170 L1090 410 Z" fill="#263f48" stroke="#564b3b" stroke-width="10"/>
+  <path d="M70 415 Q600 245 1130 415" fill="none" stroke="#564b3b" stroke-width="16"/>
+  <path d="M105 405 Q600 285 1095 405" fill="none" stroke="#4e6264" stroke-width="9"/>
+  <g fill="#b8a77f" stroke="#564b3b" stroke-width="4"><circle cx="120" cy="400" r="15"/><circle cx="190" cy="382" r="13"/><circle cx="265" cy="363" r="12"/><circle cx="340" cy="345" r="11"/><circle cx="860" cy="345" r="11"/><circle cx="935" cy="363" r="12"/><circle cx="1010" cy="382" r="13"/><circle cx="1080" cy="400" r="15"/></g>
+  <rect x="205" y="405" width="790" height="215" fill="#9c5d43" stroke="#564b3b" stroke-width="8"/>
+  <rect x="235" y="425" width="730" height="195" fill="#e2d6bd" stroke="#564b3b" stroke-width="7"/>
+  <g fill="#2d6664" stroke="#564b3b" stroke-width="7"><rect x="270" y="445" width="120" height="175"/><rect x="420" y="445" width="120" height="175"/><rect x="660" y="445" width="120" height="175"/><rect x="810" y="445" width="120" height="175"/></g>
+  <path d="M565 620 V466 Q600 430 635 466 V620Z" fill="#a94b3b" stroke="#564b3b" stroke-width="8"/>
+  <path d="M500 455 Q600 405 700 455" fill="none" stroke="#a94b3b" stroke-width="13"/>
+  <path d="M520 455 Q600 425 680 455" fill="none" stroke="#2d6664" stroke-width="11"/>
+  <rect x="555" y="345" width="90" height="45" fill="#e2d6bd" stroke="#564b3b" stroke-width="5"/>
+  <path d="M0 620 H1200" stroke="#8f8066" stroke-width="12"/>
+</svg>
