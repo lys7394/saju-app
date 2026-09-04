@@ -1,28 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-label="맑은 낮의 조선 궁궐과 산수">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-label="낮의 전통 한옥 궁궐 내부 복도">
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#82b9d2"/><stop offset="0.64" stop-color="#c8dfd3"/><stop offset="1" stop-color="#eadfbe"/></linearGradient>
-    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e5ca"/><stop offset="1" stop-color="#c8b58f"/></linearGradient>
-    <pattern id="cloud" width="150" height="45" patternUnits="userSpaceOnUse"><path d="M0 30 Q25 5 50 30 Q75 5 100 30 Q125 5 150 30" fill="none" stroke="#f4ecd9" stroke-width="5" opacity=".34"/></pattern>
+    <linearGradient id="ceiling" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b806f"/><stop offset="1" stop-color="#b4a17d"/></linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aa9779"/><stop offset="1" stop-color="#765a43"/></linearGradient>
+    <pattern id="dancheong" width="100" height="32" patternUnits="userSpaceOnUse"><path d="M0 16 L16 0 L32 16 L48 0 L64 16 L80 0 L100 16 L80 32 L64 16 L48 32 L32 16 L16 32Z" fill="#b24d3e"/><circle cx="50" cy="16" r="7" fill="#d2ad58"/><path d="M0 5 H100 M0 27 H100" stroke="#2c6b65" stroke-width="5"/></pattern>
+    <pattern id="lattice" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M0 0 L34 34 M34 0 L0 34" stroke="#725c4b" stroke-width="3"/><path d="M17 0 V34 M0 17 H34" stroke="#957b62" stroke-width="2"/></pattern>
   </defs>
-  <rect width="1200" height="620" fill="url(#sky)"/>
-  <rect width="1200" height="250" fill="url(#cloud)"/>
-  <path d="M0 355 Q125 250 250 330 Q380 205 520 330 Q680 180 810 320 Q985 210 1200 330 V455 H0Z" fill="#648a83" opacity=".72"/>
-  <path d="M0 390 Q150 305 290 385 Q420 270 570 380 Q720 255 865 378 Q1040 275 1200 365 V455 H0Z" fill="#456c6c" opacity=".62"/>
-  <g fill="#244e52" opacity=".78"><path d="M80 420 l35 -105 25 58 25 -80 37 127z"/><path d="M1000 420 l34 -115 27 65 29 -92 45 142z"/></g>
-  <path d="M0 420 H1200 V620 H0Z" fill="url(#stone)"/>
-  <path d="M0 420 H1200 V440 H0Z" fill="#a89676"/>
-  <g stroke="#ad9b78" stroke-width="3" opacity=".78"><path d="M0 480 H1200"/><path d="M0 535 H1200"/><path d="M0 590 H1200"/><path d="M100 440 V620"/><path d="M270 440 V620"/><path d="M450 440 V620"/><path d="M750 440 V620"/><path d="M930 440 V620"/><path d="M1100 440 V620"/></g>
-  <path d="M100 414 Q600 270 1100 414 L1060 431 Q600 335 140 431Z" fill="#182f3b" stroke="#4b4032" stroke-width="8"/>
-  <path d="M70 415 Q600 235 1130 415" fill="none" stroke="#4b4032" stroke-width="15"/>
-  <path d="M115 403 Q600 282 1085 403" fill="none" stroke="#6c7770" stroke-width="8"/>
-  <g fill="#b49a67" stroke="#4b4032" stroke-width="4"><circle cx="105" cy="403" r="15"/><circle cx="178" cy="380" r="13"/><circle cx="255" cy="360" r="12"/><circle cx="335" cy="343" r="11"/><circle cx="865" cy="343" r="11"/><circle cx="945" cy="360" r="12"/><circle cx="1022" cy="380" r="13"/><circle cx="1095" cy="403" r="15"/></g>
-  <rect x="195" y="407" width="810" height="213" fill="#a94d3c" stroke="#4b4032" stroke-width="8"/>
-  <rect x="225" y="424" width="750" height="196" fill="#d8c7a4" stroke="#4b4032" stroke-width="7"/>
-  <g fill="#2d6664" stroke="#4b4032" stroke-width="7"><rect x="258" y="444" width="124" height="176"/><rect x="410" y="444" width="124" height="176"/><rect x="666" y="444" width="124" height="176"/><rect x="818" y="444" width="124" height="176"/></g>
-  <g fill="#c78b3c" opacity=".9"><path d="M270 452 h100 l-50 30z"/><path d="M422 452 h100 l-50 30z"/><path d="M678 452 h100 l-50 30z"/><path d="M830 452 h100 l-50 30z"/></g>
-  <path d="M560 620 V470 Q600 427 640 470 V620Z" fill="#a94d3c" stroke="#4b4032" stroke-width="8"/>
-  <path d="M492 455 Q600 399 708 455" fill="none" stroke="#a94d3c" stroke-width="13"/>
-  <path d="M516 454 Q600 420 684 454" fill="none" stroke="#2d6664" stroke-width="10"/>
-  <rect x="553" y="349" width="94" height="45" fill="#eadfbe" stroke="#4b4032" stroke-width="5"/>
-  <path d="M0 620 H1200" stroke="#806a4d" stroke-width="12"/>
+  <rect width="1200" height="800" fill="#a99071"/>
+  <path d="M0 0 H1200 V210 L600 335 L0 210Z" fill="url(#ceiling)"/>
+  <path d="M0 0 H1200 V34 H0Z" fill="#6a4c3b"/><path d="M0 34 H1200 V66 H0Z" fill="url(#dancheong)"/>
+  <path d="M0 66 H1200 V92 H0Z" fill="#6b4a38"/>
+  <path d="M0 800 H1200 V335 L600 235 L0 335Z" fill="url(#floor)"/>
+  <path d="M0 335 L600 235 L1200 335" fill="none" stroke="#5a4235" stroke-width="16"/>
+  <path d="M0 390 L600 285 L1200 390" fill="none" stroke="#c3a67d" stroke-width="6" opacity=".6"/>
+  <path d="M0 485 L600 370 L1200 485" fill="none" stroke="#c3a67d" stroke-width="5" opacity=".5"/>
+  <path d="M0 625 L600 490 L1200 625" fill="none" stroke="#c3a67d" stroke-width="4" opacity=".45"/>
+  <g fill="#654936" stroke="#46372f" stroke-width="7"><path d="M0 0 H88 V800 H0Z"/><path d="M1112 0 H1200 V800 H1112Z"/><path d="M184 0 H245 V800 H184Z"/><path d="M955 0 H1016 V800 H955Z"/></g>
+  <g fill="#b38c68" stroke="#5b4638" stroke-width="5"><rect x="88" y="95" width="96" height="265"/><rect x="1016" y="95" width="96" height="265"/><rect x="245" y="125" width="75" height="190"/><rect x="880" y="125" width="75" height="190"/></g>
+  <g fill="url(#lattice)" stroke="#624a3b" stroke-width="6"><rect x="96" y="115" width="80" height="220"/><rect x="1024" y="115" width="80" height="220"/><rect x="253" y="140" width="58" height="165"/><rect x="889" y="140" width="58" height="165"/></g>
+  <g fill="#7c5740" stroke="#49382f" stroke-width="5"><path d="M0 92 H320 L600 235 L0 335Z"/><path d="M1200 92 H880 L600 235 L1200 335Z"/></g>
+  <g fill="url(#dancheong)"><path d="M0 92 H320 L600 235 L520 250 L0 145Z"/><path d="M1200 92 H880 L600 235 L680 250 L1200 145Z"/></g>
+  <path d="M478 800 H722 L650 290 H550Z" fill="#b99d78" opacity=".72"/>
+  <rect x="550" y="130" width="100" height="150" fill="#d9c6a3" stroke="#594435" stroke-width="7"/>
+  <rect x="563" y="143" width="74" height="124" fill="url(#lattice)" stroke="#795d49" stroke-width="4"/>
+  <path d="M0 800 H1200" stroke="#4e3d32" stroke-width="14"/>
 </svg>
