@@ -367,9 +367,17 @@
 
     function formatNarrative(text) {
         let formatted = escapeHtml(text);
-        formatted = formatted.replace(/^((?:■|\[)[^\n]+(?:\]|$))/gm, '<span class="report-heading">$1</span>');
+        const headings = [];
+        formatted = formatted.replace(/^((?:■|\[)[^\n]+(?:\]|$))/gm, heading => {
+            const token = `__REPORT_HEADING_${headings.length}__`;
+            headings.push(`<span class="report-heading">${heading}</span>`);
+            return token;
+        });
         ['일간', '일지', '오행', '십성', '신살', '12운성', '용신', '희신', '편재', '정재', '편관', '정관', '식신', '상관', '비견', '겁재', '편인', '정인'].forEach(term => {
             formatted = formatted.replace(new RegExp(`(?<![\\w가-힣])(${term}(?:\\([^\\n)]*\\))?)`, 'g'), '<mark>$1</mark>');
+        });
+        headings.forEach((heading, index) => {
+            formatted = formatted.replace(`__REPORT_HEADING_${index}__`, heading);
         });
         return formatted;
     }
