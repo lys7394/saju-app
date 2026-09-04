@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>운명의 길 - 명리학 정밀 사주 분석</title>
     <style>
-        :root { --ink: #25231d; --paper: #f2ead7; --paper-deep: #e6d8bd; --panel: #fbf5e7; --line: #a99a7a; --jade: #2f6d69; --gold: #9a6c27; --vermillion: #a44535; }
-        body { font-family: 'Apple SD Gothic Neo', sans-serif; background-color: #d8c8aa; background-image: linear-gradient(90deg, rgba(104, 82, 45, 0.04) 1px, transparent 1px), linear-gradient(rgba(104, 82, 45, 0.035) 1px, transparent 1px); background-size: 7px 7px; color: var(--ink); margin: 0; padding: 32px 20px; line-height: 1.85; min-height: 100vh; }
-        .container { max-width: 760px; min-width: 0; margin: 0 auto; background-color: var(--paper); background-image: linear-gradient(90deg, rgba(100, 75, 35, 0.025) 1px, transparent 1px), linear-gradient(rgba(100, 75, 35, 0.02) 1px, transparent 1px); background-size: 5px 5px; padding: 34px; border-radius: 4px; border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(65, 48, 27, 0.22); }
+        :root { --ink: #25231d; --paper: #f2ead7; --paper-deep: #e6d8bd; --panel: #fbf5e7; --line: #a99a7a; --jade: #2f6d69; --gold: #9a6c27; --vermillion: #a44535; --roof: #173c42; --wood: #6f4932; }
+        body { font-family: 'Apple SD Gothic Neo', sans-serif; background-color: #315b5b; background-image: linear-gradient(180deg, rgba(22, 57, 64, 0.98) 0 19%, transparent 19%), linear-gradient(170deg, transparent 0 72%, rgba(104, 68, 42, 0.32) 72% 73%, transparent 73%), linear-gradient(90deg, rgba(242, 234, 215, 0.06) 1px, transparent 1px), linear-gradient(rgba(242, 234, 215, 0.04) 1px, transparent 1px); background-size: auto, auto, 9px 9px, 9px 9px; color: var(--ink); margin: 0; padding: 32px 20px; line-height: 1.85; min-height: 100vh; }
+        .container { max-width: 760px; min-width: 0; margin: 0 auto; background-color: var(--paper); background-image: linear-gradient(90deg, rgba(100, 75, 35, 0.035) 1px, transparent 1px), linear-gradient(rgba(100, 75, 35, 0.025) 1px, transparent 1px); background-size: 5px 5px; padding: 34px; border-radius: 4px; border: 1px solid #8e8065; box-shadow: 0 18px 40px rgba(16, 44, 47, 0.34); }
         h1 { color: var(--jade); text-align: center; margin-top: 0; border-bottom: 2px solid var(--jade); padding-bottom: 18px; font-size: 22px; letter-spacing: 1px; }
         #input-section { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 22px; }
         #input-section button { grid-column: 1 / -1; }
@@ -29,7 +29,7 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         #result-section { display: none; }
-        .user-info-card { background: rgba(255, 253, 246, 0.68); padding: 18px; border-radius: 3px; margin-bottom: 20px; border-left: 4px solid var(--vermillion); }
+        .user-info-card { background: rgba(255, 253, 246, 0.74); padding: 18px; border-radius: 3px; margin-bottom: 20px; border-left: 4px solid var(--vermillion); box-shadow: inset 0 0 0 1px rgba(142, 128, 101, 0.28); }
         .user-info-card p { margin: 6px 0; font-size: 14px; color: #514a3d; }
         
         .saju-table { width: 100%; border-collapse: collapse; margin: 15px 0; text-align: center; background: #fffdf6; border-radius: 3px; overflow: hidden; }
@@ -39,13 +39,13 @@
 
         .report-header { font-size: 18px; color: var(--jade); margin-top: 25px; margin-bottom: 15px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; font-weight: bold; }
         .summary { white-space: pre-line; max-width: 100%; font-size: 15px; color: var(--ink); line-height: 2; text-align: left; word-break: keep-all; overflow-wrap: break-word; }
-        .key-line { margin: 18px 0 14px; padding: 16px; border-left: 3px solid var(--vermillion); background: #f9f1df; color: var(--ink); font-size: 15px; line-height: 1.8; overflow-wrap: break-word; }
+        .key-line { margin: 18px 0 14px; padding: 16px; border-left: 3px solid var(--vermillion); background: #f9f1df; color: var(--ink); font-size: 15px; line-height: 1.8; overflow-wrap: break-word; box-shadow: inset 0 0 24px rgba(143, 111, 57, 0.06); }
         .fortune-heading { color: var(--jade); font-size: 18px; margin: 24px 0 12px; }
         .fortune-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .fortune-card { background: #fffdf6; border: 1px solid var(--line); padding: 14px; min-height: 88px; }
         .fortune-card strong { display: block; color: var(--vermillion); font-size: 13px; margin-bottom: 6px; }
         .fortune-card span { color: var(--ink); font-size: 14px; line-height: 1.6; overflow-wrap: break-word; }
-        .analysis-data { white-space: pre-line; font-size: 14px; color: var(--ink); background: #fffdf6; padding: 15px; border-radius: 3px; line-height: 1.8; overflow-wrap: break-word; }
+        .analysis-data { white-space: pre-line; font-size: 14px; color: var(--ink); background: #fffdf6; padding: 15px; border-radius: 3px; line-height: 1.8; overflow-wrap: break-word; box-shadow: inset 0 0 24px rgba(143, 111, 57, 0.06); }
         .element-chart { display: grid; gap: 9px; margin-top: 14px; }
         .element-row { display: grid; grid-template-columns: 54px 1fr 28px; align-items: center; gap: 8px; font-size: 13px; }
         .element-label { color: var(--ink); font-weight: bold; }
@@ -57,7 +57,7 @@
         .element-earth { background: #c6a56a; }
         .element-metal { background: #c8d0c8; }
         .element-water { background: #6da2bd; }
-        .term-guide { margin: 22px 0 0; padding: 16px; border: 1px solid var(--line); background: #f7efdf; }
+        .term-guide { margin: 22px 0 0; padding: 16px; border: 1px solid var(--line); background: #f7efdf; box-shadow: inset 0 0 24px rgba(143, 111, 57, 0.07); }
         .term-guide h3 { margin: 0 0 10px; color: var(--jade); font-size: 16px; }
         .term-guide p { margin: 7px 0; color: #443e33; font-size: 13px; line-height: 1.7; }
         .detail-menu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0 16px; }
